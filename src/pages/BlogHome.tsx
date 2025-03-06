@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SEOHead from '../components/SEOHead';
 import BlogCard from '../components/BlogCard';
 import { blogPosts } from '../data/blogPosts';
@@ -57,6 +57,15 @@ const BlogHome: React.FC = () => {
   const allTags = new Set<string>();
   blogPosts.forEach(post => post.tags.forEach(tag => allTags.add(tag)));
   const keywordString = Array.from(allTags).join(', ') + ', real estate blog, real estate technology, real estate AI, real estate agents, real estate professionals';
+  
+  // Ensure meta tags are updated when component mounts
+  useEffect(() => {
+    // Force a re-render of SEOHead when component mounts
+    const metaTitle = document.querySelector('title');
+    if (metaTitle) {
+      metaTitle.textContent = 'Real Estate Blog - AI Technology & Strategies for Real Estate Professionals';
+    }
+  }, []);
   
   // Group posts by category
   const aiTechnologyPosts = blogPosts.filter(post => 

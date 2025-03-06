@@ -144,6 +144,15 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const processedContent = processContent(post.content);
   const processedContentPart2 = post.contentPart2 ? processContent(post.contentPart2) : null;
   
+  // Ensure meta tags are updated when post changes
+  useEffect(() => {
+    // Force a re-render of SEOHead when post changes
+    const metaTitle = document.querySelector('title');
+    if (metaTitle) {
+      metaTitle.textContent = `${post.title} | Real Estate Technology Blog`;
+    }
+  }, [post.title]);
+  
   return (
     <>
       <SEOHead 
