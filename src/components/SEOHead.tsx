@@ -1,5 +1,5 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 interface SEOHeadProps {
   title: string;
@@ -29,8 +29,13 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   const baseUrl = 'https://www.realestateaiblog.com';
   const fullCanonicalUrl = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
 
+  useEffect(() => {
+    // Directly set the title as a fallback
+    document.title = title;
+  }, [title]);
+
   return (
-    <Helmet prioritizeSeoTags>
+    <Helmet defaultTitle="Real Estate AI Blog" titleTemplate="%s | Real Estate AI Blog">
       {/* Basic Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
@@ -44,7 +49,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:site_name" content="Real Estate Blog" />
+      <meta property="og:site_name" content="Real Estate AI Blog" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
