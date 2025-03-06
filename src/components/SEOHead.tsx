@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SEOHeadProps {
@@ -26,30 +26,11 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   publishedDate,
   modifiedDate,
 }) => {
-  const baseUrl = 'https://realestateblog.com';
+  const baseUrl = 'https://www.realestateaiblog.com';
   const fullCanonicalUrl = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
-  
-  // Ensure meta tags are updated when props change
-  useEffect(() => {
-    // Force update of meta tags
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', description);
-    }
-    
-    const ogTitleMeta = document.querySelector('meta[property="og:title"]');
-    if (ogTitleMeta) {
-      ogTitleMeta.setAttribute('content', title);
-    }
-    
-    const ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
-    if (ogDescriptionMeta) {
-      ogDescriptionMeta.setAttribute('content', description);
-    }
-  }, [title, description]);
-  
+
   return (
-    <Helmet>
+    <Helmet prioritizeSeoTags>
       {/* Basic Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
