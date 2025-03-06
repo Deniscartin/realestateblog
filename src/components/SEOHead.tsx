@@ -57,12 +57,36 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       {publishedDate && <meta property="article:published_time" content={publishedDate} />}
       {modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
       
+      {/* Preconnect to external resources */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://images.unsplash.com" />
+      
+      {/* Font loading */}
+      <link 
+        rel="preload" 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+        as="style" 
+      />
+      <link 
+        rel="stylesheet" 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
+      />
+      
       {/* Schema.org JSON-LD */}
       {schema && (
         <script type="application/ld+json">
           {JSON.stringify(schema)}
         </script>
       )}
+      
+      {/* NoScript fallback */}
+      <noscript>{`
+        <div style="padding: 2rem; text-align: center;">
+          <h1>JavaScript Required</h1>
+          <p>This website requires JavaScript to function properly. Please enable JavaScript in your browser settings to continue.</p>
+        </div>
+      `}</noscript>
     </Helmet>
   );
 };
